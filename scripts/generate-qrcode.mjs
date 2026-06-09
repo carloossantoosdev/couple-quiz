@@ -8,10 +8,13 @@ const configPath = path.join(root, 'deploy.config.json')
 
 function loadUrl() {
   const fromArg = process.argv[2]
-  if (fromArg) return fromArg.replace(/\/$/, '') + '/'
+  if (fromArg) return normalizeUrl(fromArg)
 
   if (fs.existsSync(configPath)) {
     const config = JSON.parse(fs.readFileSync(configPath, 'utf8'))
+
+    if (config.vercelUrl?.trim()) return normalizeUrl(config.vercelUrl)
+
     const user = config.githubUser?.trim()
     const repo = (config.repoName || 'couple-quiz').trim()
     if (user) return `https://${user}.github.io/${repo}/`
@@ -20,13 +23,18 @@ function loadUrl() {
   console.error(`
 Informe a URL publicada do quiz.
 
-Opcao 1 — argumento:
-  npm run qrcode -- https://SEU-USUARIO.github.io/couple-quiz/
+Opcao 1 — argumento (Vercel ou GitHub Pages):
+  npm run qrcode -- https://couple-quiz-henna.vercel.app
 
 Opcao 2 — arquivo deploy.config.json (copie deploy.config.example.json):
-  { "githubUser": "SEU-USUARIO", "repoName": "couple-quiz" }
+  { "vercelUrl": "https://couple-quiz-henna.vercel.app" }
 `)
   process.exit(1)
+}
+
+function normalizeUrl(value) {
+  const withProtocol = /^https?:\/\//i.test(value) ? value : `https://${value}`
+  return withProtocol.replace(/\/$/, '') + '/'
 }
 
 const url = loadUrl()

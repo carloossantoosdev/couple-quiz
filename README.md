@@ -16,62 +16,43 @@ npm run build
 npm run preview
 ```
 
-## Publicar no GitHub + QR Code
+## Publicar na Vercel + QR Code
 
-### 1. Criar o repositório no GitHub
+### 1. Deploy na Vercel
 
-1. Acesse [github.com/new](https://github.com/new)
-2. Nome sugerido: **`couple-quiz`**
-3. Deixe **público** (GitHub Pages gratuito)
-4. **Não** marque README/gitignore (já existem no projeto)
+1. Conecte o repositório GitHub em [vercel.com/new](https://vercel.com/new)
+2. Framework: **Vite** (detectado automaticamente)
+3. Build: `npm run build` · Output: `dist`
+4. Deploy — a URL ficará algo como `https://couple-quiz-henna.vercel.app`
 
-No terminal, na pasta do projeto:
+O arquivo `vercel.json` já está configurado para o app React.
 
-```bash
-git init
-git add .
-git commit -m "Quiz do casal — versão final"
-git branch -M main
-git remote add origin https://github.com/SEU-USUARIO/couple-quiz.git
-git push -u origin main
-```
+### 2. Gerar o QR Code (Vercel)
 
-> Troque `SEU-USUARIO` pelo seu usuário do GitHub.
-
-### 2. Ativar GitHub Pages
-
-1. No GitHub: **Settings → Pages**
-2. Em **Build and deployment → Source**, escolha **GitHub Actions**
-3. O workflow `.github/workflows/deploy.yml` publica automaticamente a cada push na branch `main`
-
-Aguarde 1–2 minutos. A URL ficará:
-
-```text
-https://SEU-USUARIO.github.io/couple-quiz/
-```
-
-### 3. Gerar o QR Code
-
-Depois do deploy, gere o QR para ela abrir no celular:
+Depois do deploy, com a URL publicada:
 
 ```bash
-npm run qrcode -- https://SEU-USUARIO.github.io/couple-quiz/
+npm run qrcode -- https://couple-quiz-henna.vercel.app
 ```
 
-Ou copie o exemplo e edite:
+Ou copie e edite o config:
 
 ```bash
 copy deploy.config.example.json deploy.config.json
-# edite githubUser e repoName
+# edite vercelUrl com sua URL da Vercel
 npm run qrcode
 ```
 
 Isso cria:
 
-- **`qrcode.png`** — imagem para imprimir ou enviar
-- **`qrcode.html`** — página para abrir no navegador e mostrar o QR
+- **`qrcode.png`** — imprima ou envie para ela
+- **`qrcode.html`** — abra no navegador para ver o QR em tela cheia
 
-Abra `qrcode.html` no Chrome, imprima ou mande a imagem `qrcode.png` para ela escanear.
+---
+
+## GitHub Pages (opcional)
+
+Se preferir GitHub Pages em vez da Vercel, use **Settings → Pages → GitHub Actions** no repositório. A URL será `https://SEU-USUARIO.github.io/couple-quiz/`.
 
 ## Personalizar
 
