@@ -2,6 +2,35 @@
 
 App web romântico e gamificado para o Dia dos Namorados. React + Vite + Zustand + Framer Motion — tudo local, sem backend.
 
+## Acessar o quiz (link + QR Code)
+
+**Link:** [https://couple-quiz-henna.vercel.app](https://couple-quiz-henna.vercel.app)
+
+Escaneie o QR Code no celular para abrir o quiz:
+
+![QR Code do Quiz do Casal](docs/qrcode.png)
+
+### Enviar o QR Code no WhatsApp
+
+**No celular (Android/iPhone):**
+
+1. Abra o WhatsApp e entre na conversa dela
+2. Toque no **📎** (anexar)
+3. Escolha **Documento** ou **Galeria**
+4. Selecione o arquivo **`qrcode.png`** (fica na pasta do projeto, ou em **Arquivos/Downloads** se você salvou antes)
+5. Envie — ela escaneia a imagem direto no WhatsApp (toque na foto → menu → **Ler QR code**, ou abra a câmera do celular apontando para a tela)
+
+**No computador (WhatsApp Web):**
+
+1. Abra [web.whatsapp.com](https://web.whatsapp.com) e entre na conversa
+2. Clique no **📎** → **Documento**
+3. Escolha `qrcode.png` na pasta `couple-quiz`
+4. Envie a imagem
+
+**Dica:** também dá para abrir `qrcode.html` no navegador, tirar um print da tela e enviar a captura — funciona igual.
+
+---
+
 ## Rodar localmente
 
 ```bash

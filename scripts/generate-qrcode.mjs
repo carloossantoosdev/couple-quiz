@@ -48,9 +48,12 @@ if (!res.ok) {
 
 const png = Buffer.from(await res.arrayBuffer())
 const outPng = path.join(root, 'qrcode.png')
+const outDocs = path.join(root, 'docs', 'qrcode.png')
 const outHtml = path.join(root, 'qrcode.html')
 
+fs.mkdirSync(path.dirname(outDocs), { recursive: true })
 fs.writeFileSync(outPng, png)
+fs.copyFileSync(outPng, outDocs)
 
 const html = `<!DOCTYPE html>
 <html lang="pt-BR">
@@ -104,4 +107,4 @@ fs.writeFileSync(outHtml, html)
 
 console.log('QR code gerado!')
 console.log('URL:', url)
-console.log('Arquivos: qrcode.png, qrcode.html')
+console.log('Arquivos: qrcode.png, qrcode.html, docs/qrcode.png')
