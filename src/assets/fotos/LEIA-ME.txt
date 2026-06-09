@@ -1,0 +1,15 @@
+Coloque aqui as fotos do casal.
+
+- Formatos aceitos: jpg, jpeg, png, webp, gif, avif
+- Dica de nomes: foto1.jpg, foto2.jpg, foto3.jpg ...
+  (a ordem das fotos segue o nome do arquivo)
+- As legendas ficam em src/data/content.js (lista "captions"),
+  na mesma ordem das fotos.
+
+Cada acerto no quiz desbloqueia uma foto. Acertando tudo,
+todas as fotos sao liberadas no final.
+
+Se o servidor (npm run dev) ja estiver rodando quando voce
+adicionar as fotos, reinicie-o para que elas sejam detectadas.
+
+Pode apagar este arquivo depois de adicionar as fotos.

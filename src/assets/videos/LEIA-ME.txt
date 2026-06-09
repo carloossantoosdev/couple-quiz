@@ -1,0 +1,13 @@
+VIDEO DA CARTA FINAL
+====================
+
+Coloque aqui o video que aparece na carta final do quiz.
+
+Como usar:
+  1. Salve o arquivo nesta pasta (ex.: video.mp4).
+  2. Formatos aceitos: mp4, webm, mov.
+  3. Se houver varios arquivos, o app prioriza o nome "video.*".
+  4. Reinicie "npm run dev" se o servidor ja estava aberto.
+
+Legenda (opcional):
+  Edite "letterVideoCaption" em src/data/content.js.

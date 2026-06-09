@@ -1,0 +1,592 @@
+:root {
+  --pink-50: #fff0f5;
+  --pink-100: #ffe1ec;
+  --pink-200: #ffc2d6;
+  --pink-400: #ff8fb1;
+  --pink-500: #ff5c8a;
+  --pink-600: #e84a7f;
+  --pink-700: #d63b6e;
+  --red-500: #ff3d6e;
+  --text: #5a2740;
+  --text-soft: #8a5a72;
+  --white: #ffffff;
+  --shadow: 0 18px 40px rgba(214, 59, 110, 0.22);
+  --radius: 22px;
+  font-family: 'Poppins', system-ui, -apple-system, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  color: var(--text);
+  background: linear-gradient(160deg, #ffd9e6 0%, #ffb3cd 45%, #ff8fb1 100%);
+  background-attachment: fixed;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ---------- Layout ---------- */
+.app {
+  position: relative;
+  min-height: 100dvh;
+  overflow-x: hidden;
+}
+
+.stage {
+  position: relative;
+  z-index: 2;
+  min-height: 100dvh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 16px;
+}
+
+.screen {
+  width: 100%;
+  max-width: 560px;
+}
+
+.card {
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(8px);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 36px 28px;
+  text-align: center;
+  border: 1px solid rgba(255, 255, 255, 0.7);
+}
+
+/* ---------- Tipografia ---------- */
+.title-script {
+  font-family: 'Dancing Script', cursive;
+  font-size: clamp(2.4rem, 8vw, 3.4rem);
+  color: var(--pink-600);
+  line-height: 1.05;
+  margin-bottom: 8px;
+}
+
+.subtitle {
+  font-size: 1.05rem;
+  color: var(--text);
+  margin: 10px 0;
+  line-height: 1.5;
+}
+
+.hint,
+.footnote {
+  font-size: 0.9rem;
+  color: var(--text-soft);
+  margin-top: 10px;
+}
+
+.footnote {
+  margin-top: 18px;
+  opacity: 0.8;
+}
+
+.big-heart {
+  font-size: 4rem;
+  margin-bottom: 6px;
+  filter: drop-shadow(0 6px 10px rgba(214, 59, 110, 0.35));
+}
+
+/* ---------- Botoes ---------- */
+.btn {
+  display: inline-block;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  font-weight: 600;
+  font-size: 1.05rem;
+  padding: 14px 30px;
+  border-radius: 999px;
+  margin-top: 18px;
+  transition: box-shadow 0.2s ease;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--pink-500), var(--pink-700));
+  color: var(--white);
+  box-shadow: 0 10px 24px rgba(232, 74, 127, 0.4);
+}
+
+.btn-primary:hover {
+  box-shadow: 0 14px 30px rgba(232, 74, 127, 0.55);
+}
+
+.btn-ghost {
+  display: block;
+  margin: 14px auto 0;
+  background: transparent;
+  color: var(--pink-600);
+  font-size: 0.95rem;
+  padding: 8px 18px;
+}
+
+.btn-ghost:hover {
+  text-decoration: underline;
+}
+
+/* ---------- Progresso ---------- */
+.progress {
+  margin-bottom: 22px;
+}
+
+.progress-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.85rem;
+  color: var(--text-soft);
+  margin-bottom: 8px;
+}
+
+.score-pill {
+  background: var(--pink-100);
+  color: var(--pink-700);
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-weight: 600;
+}
+
+.progress-track {
+  height: 12px;
+  background: var(--pink-100);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--pink-400), var(--pink-600));
+  border-radius: 999px;
+}
+
+/* ---------- Pergunta / opcoes ---------- */
+.question-text {
+  font-size: 1.4rem;
+  color: var(--text);
+  margin: 8px 0 22px;
+  line-height: 1.35;
+  min-height: 2.4em;
+}
+
+.options {
+  display: grid;
+  gap: 12px;
+}
+
+.option {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  text-align: left;
+  background: var(--white);
+  border: 2px solid var(--pink-100);
+  border-radius: 16px;
+  padding: 14px 16px;
+  font-family: inherit;
+  font-size: 1rem;
+  color: var(--text);
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s, transform 0.1s;
+}
+
+.option:hover {
+  border-color: var(--pink-400);
+  background: var(--pink-50);
+}
+
+.option-letter {
+  flex: none;
+  width: 30px;
+  height: 30px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--pink-100);
+  color: var(--pink-700);
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+.option-text {
+  flex: 1;
+}
+
+.mark {
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.option-correct {
+  border-color: #36c275;
+  background: #e7faf0;
+  color: #1f7a4d;
+}
+
+.option-correct .option-letter {
+  background: #36c275;
+  color: #fff;
+}
+
+.option-correct .mark {
+  color: #1f7a4d;
+}
+
+.option-wrong {
+  border-color: var(--red-500);
+  background: #ffe9ee;
+  color: #b3203f;
+}
+
+.option-wrong .option-letter {
+  background: var(--red-500);
+  color: #fff;
+}
+
+.option-wrong .mark {
+  color: #b3203f;
+}
+
+.option-dim {
+  opacity: 0.55;
+}
+
+.option:disabled {
+  cursor: default;
+}
+
+/* ---------- Feedback ---------- */
+.feedback {
+  margin-top: 22px;
+  padding: 16px;
+  border-radius: 16px;
+}
+
+.feedback p {
+  font-size: 1.05rem;
+  font-weight: 500;
+}
+
+.feedback-ok {
+  background: #e7faf0;
+  color: #1f7a4d;
+}
+
+.feedback-no {
+  background: #ffe9ee;
+  color: #b3203f;
+}
+
+.feedback-ok .memory.reveal,
+.feedback-no .memory.reveal {
+  margin-top: 14px;
+}
+
+.feedback .memory-photo {
+  aspect-ratio: unset;
+}
+
+/* ---------- Resultado ---------- */
+.score-big {
+  font-size: 3.4rem;
+  font-weight: 700;
+  color: var(--pink-600);
+  margin: 4px 0 8px;
+}
+
+.score-big span {
+  font-size: 1.6rem;
+  color: var(--text-soft);
+}
+
+/* ---------- Surpresa / galeria ---------- */
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 14px;
+  margin: 22px 0;
+}
+
+.photo {
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+  background: var(--pink-100);
+  aspect-ratio: 1 / 1;
+  box-shadow: 0 8px 18px rgba(214, 59, 110, 0.18);
+}
+
+.photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.photo figcaption {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 8px 10px;
+  font-size: 0.82rem;
+  color: #fff;
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.55));
+  text-align: left;
+}
+
+.photo-locked {
+  background: repeating-linear-gradient(
+    45deg,
+    var(--pink-100),
+    var(--pink-100) 10px,
+    var(--pink-200) 10px,
+    var(--pink-200) 20px
+  );
+}
+
+.locked-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  color: var(--pink-700);
+}
+
+.locked-overlay .lock {
+  font-size: 1.8rem;
+}
+
+.locked-overlay small {
+  font-size: 0.72rem;
+  padding: 0 8px;
+  text-align: center;
+}
+
+/* ---------- Lembrancas (foto + carta por pergunta) ---------- */
+.memories {
+  display: grid;
+  gap: 16px;
+  margin: 22px 0;
+  text-align: left;
+}
+
+.memory {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  background: linear-gradient(180deg, #fffdf8, #fff6fb);
+  border: 1px solid var(--pink-200);
+  border-radius: 18px;
+  padding: 14px;
+  box-shadow: 0 8px 18px rgba(214, 59, 110, 0.14);
+  align-items: stretch;
+}
+
+.memory-photo {
+  width: 100%;
+  border-radius: 14px;
+  overflow: hidden;
+  background: var(--pink-100);
+  box-shadow: 0 6px 14px rgba(214, 59, 110, 0.2);
+}
+
+.memory-photo img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: contain;
+}
+
+.memory-body {
+  flex: 1;
+  min-width: 0;
+  padding: 0 2px 4px;
+}
+
+.memory-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--pink-700);
+  margin-bottom: 6px;
+  line-height: 1.35;
+}
+
+.memory-card {
+  font-family: 'Dancing Script', cursive;
+  font-size: 1.28rem;
+  line-height: 1.5;
+  color: var(--text);
+}
+
+.memory-locked {
+  background: repeating-linear-gradient(
+    45deg,
+    var(--pink-50),
+    var(--pink-50) 10px,
+    var(--pink-100) 10px,
+    var(--pink-100) 20px
+  );
+  border-style: dashed;
+}
+
+.memory-locked-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 10px;
+  color: var(--pink-700);
+  padding: 16px 8px;
+}
+
+.memory-locked-inner .lock {
+  font-size: 1.6rem;
+  flex: none;
+}
+
+.memory-locked-inner small {
+  font-size: 0.82rem;
+  line-height: 1.35;
+}
+
+/* ---------- Carta ---------- */
+.letter {
+  margin-top: 20px;
+  background: linear-gradient(180deg, #fffdf8, #fff6fb);
+  border: 1px solid var(--pink-200);
+  border-radius: 16px;
+  padding: 24px 22px;
+  text-align: left;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.6);
+}
+
+.letter-text {
+  font-family: 'Dancing Script', cursive;
+  font-size: 1.35rem;
+  line-height: 1.6;
+  color: var(--text);
+  white-space: pre-line;
+}
+
+.letter-video {
+  margin: 20px 0 4px;
+  border-radius: 14px;
+  overflow: hidden;
+  background: #1a1018;
+  box-shadow: 0 8px 18px rgba(214, 59, 110, 0.18);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.letter-video video {
+  width: auto;
+  max-width: 100%;
+  max-height: min(70dvh, 520px);
+  height: auto;
+  display: block;
+  object-fit: contain;
+  margin: 0 auto;
+  background: transparent;
+}
+
+.letter-video-caption {
+  margin: 10px 0 4px;
+  font-family: 'Dancing Script', cursive;
+  font-size: 1.15rem;
+  color: var(--text-soft);
+  text-align: center;
+}
+
+.letter-sign {
+  margin-top: 16px;
+  font-family: 'Dancing Script', cursive;
+  font-size: 1.3rem;
+  color: var(--pink-600);
+  text-align: right;
+  white-space: pre-line;
+}
+
+/* ---------- Player de musica ---------- */
+.music-btn {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  z-index: 10;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  font-size: 1.4rem;
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 8px 20px rgba(214, 59, 110, 0.3);
+  display: grid;
+  place-items: center;
+}
+
+/* ---------- Efeitos de fundo ---------- */
+.floating-hearts {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.floating-hearts span {
+  position: absolute;
+  bottom: 0;
+  opacity: 0.7;
+}
+
+.confetti {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.confetti span {
+  position: absolute;
+  top: 0;
+  border-radius: 2px;
+}
+
+/* ---------- Responsivo ---------- */
+@media (max-width: 480px) {
+  .card {
+    padding: 28px 16px;
+  }
+  .question-text {
+    font-size: 1.2rem;
+  }
+  .gallery {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .memories {
+    gap: 18px;
+    margin: 18px 0;
+  }
+  .memory {
+    padding: 12px;
+  }
+}
