@@ -158,6 +158,53 @@ export const heartHuntItems = [
   { id: 'h8', x: 52, y: 68, message: 'Feliz Dia dos Namorados, meu amor! 💖' },
 ]
 
+// Roleta da sorte do amor — prêmios simbólicos (cupom na tela).
+// label: texto do prêmio no cupom · shortLabel: texto curto na roleta · emoji: ícone
+export const loveWheelPrizes = [
+  {
+    id: 'hug',
+    label: '1 abraço extra',
+    shortLabel: 'Abraço',
+    emoji: '🤗',
+    couponDetail: 'Resgate quando quiser — sem limite de validade emocional.',
+  },
+  {
+    id: 'dinner',
+    label: 'Jantar à sua escolha',
+    shortLabel: 'Jantar',
+    emoji: '🍽️',
+    couponDetail: 'Você escolhe o lugar. Eu pago as contas (e os elogios).',
+  },
+  {
+    id: 'movie',
+    label: 'Filme que você escolhe',
+    shortLabel: 'Filme',
+    emoji: '🎬',
+    couponDetail: 'Pipoca, coberta e zero reclamação sobre o gênero.',
+  },
+  {
+    id: 'dessert',
+    label: 'Sobremesa da sua escolha',
+    shortLabel: 'Doce',
+    emoji: '🍰',
+    couponDetail: 'Docinho, sorvete ou brigadeiro — você manda.',
+  },
+  {
+    id: 'massage',
+    label: 'Massagem relaxante',
+    shortLabel: 'Massagem',
+    emoji: '💆',
+    couponDetail: '15 minutos de massagem nas costas, sem pressa.',
+  },
+  {
+    id: 'viagem',
+    label: 'Viagem que você escolhe',
+    shortLabel: 'Viagem',
+    emoji: '✈️',
+    couponDetail: 'Você escolhe o lugar. Eu pago as contas (e os elogios).',
+  },
+]
+
 // Assinatura da carta final
 export const signature = 'Com todo o meu amor,\nVocê-sabe-quem 💌'
 

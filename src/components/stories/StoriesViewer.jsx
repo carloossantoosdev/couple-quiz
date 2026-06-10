@@ -4,6 +4,7 @@ import TimeTogetherSlide from './TimeTogetherSlide.jsx'
 import TimelineSlide from './TimelineSlide.jsx'
 import TravelMapSlide from './TravelMapSlide.jsx'
 import HeartHuntSlide from './HeartHuntSlide.jsx'
+import LoveWheelSlide from './LoveWheelSlide.jsx'
 import QuizIntroSlide from './QuizIntroSlide.jsx'
 
 const SLIDES = [
@@ -11,6 +12,7 @@ const SLIDES = [
   { id: 'timeline', Component: TimelineSlide, duration: null },
   { id: 'map', Component: TravelMapSlide, duration: null },
   { id: 'hearts', Component: HeartHuntSlide, duration: null },
+  { id: 'wheel', Component: LoveWheelSlide, duration: null },
   { id: 'quiz', Component: QuizIntroSlide, duration: null },
 ]
 
@@ -25,6 +27,10 @@ const BLOCK_NAV_SELECTORS = [
   '.leaflet-control',
   '.heart-hunt-board',
   '.heart-hunt-heart',
+  '.love-wheel-shell',
+  '.love-wheel-disc',
+  '.love-wheel-spin',
+  '.love-wheel-coupon',
 ].join(', ')
 
 export default function StoriesViewer() {
@@ -44,6 +50,10 @@ export default function StoriesViewer() {
     complete: false,
     pct: 0,
   })
+  const [wheelProgress, setWheelProgress] = useState({
+    complete: false,
+    pct: 0,
+  })
 
   const slide = SLIDES[index]
   const Slide = slide.Component
@@ -51,7 +61,8 @@ export default function StoriesViewer() {
   const isTimeline = slide.id === 'timeline'
   const isMap = slide.id === 'map'
   const isHearts = slide.id === 'hearts'
-  const isInteractive = isMap || isHearts
+  const isWheel = slide.id === 'wheel'
+  const isInteractive = isMap || isHearts || isWheel
 
   const goNext = useCallback(() => {
     if (isLast) return
@@ -75,6 +86,9 @@ export default function StoriesViewer() {
     if (slide.id !== 'hearts') {
       setHuntProgress({ count: 0, total: 0, complete: false, pct: 0 })
     }
+    if (slide.id !== 'wheel') {
+      setWheelProgress({ complete: false, pct: 0 })
+    }
   }, [index, slide.id])
 
   useEffect(() => {
@@ -90,6 +104,11 @@ export default function StoriesViewer() {
 
     if (isHearts) {
       setProgress(huntProgress.complete ? 100 : huntProgress.pct)
+      return
+    }
+
+    if (isWheel) {
+      setProgress(wheelProgress.complete ? 100 : wheelProgress.pct)
       return
     }
 
@@ -112,9 +131,11 @@ export default function StoriesViewer() {
     isTimeline,
     isMap,
     isHearts,
+    isWheel,
     timelineScroll,
     mapProgress,
     huntProgress,
+    wheelProgress,
     goNext,
   ])
 
@@ -128,6 +149,10 @@ export default function StoriesViewer() {
 
   const handleHuntProgress = useCallback((state) => {
     setHuntProgress(state)
+  }, [])
+
+  const handleWheelProgress = useCallback((state) => {
+    setWheelProgress(state)
   }, [])
 
   const handleTap = (e) => {
@@ -146,12 +171,15 @@ export default function StoriesViewer() {
       ? 'Toque fora do mapa: direita avança · esquerda volta'
       : isHearts
         ? 'Toque fora da área do jogo: direita avança · esquerda volta'
-        : 'Toque à direita para avançar · esquerda para voltar'
+        : isWheel
+          ? 'Gire a roleta · toque fora dela para avançar ou voltar'
+          : 'Toque à direita para avançar · esquerda para voltar'
 
   const renderSlide = () => {
     if (isTimeline) return <TimelineSlide onScrollProgress={handleTimelineScroll} />
     if (isMap) return <TravelMapSlide onMapProgress={handleMapProgress} />
     if (isHearts) return <HeartHuntSlide onHuntProgress={handleHuntProgress} />
+    if (isWheel) return <LoveWheelSlide onWheelProgress={handleWheelProgress} />
     return <Slide />
   }
 

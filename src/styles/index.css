@@ -1205,6 +1205,202 @@ body {
   font-weight: 500;
 }
 
+/* ---------- Roleta da sorte do amor ---------- */
+.story-slide-wheel {
+  align-items: center;
+  padding-bottom: 28px;
+}
+
+.story-slide-wheel .story-title,
+.story-slide-wheel .story-sub {
+  text-align: center;
+}
+
+.love-wheel-shell {
+  position: relative;
+  width: min(78vw, 300px);
+  height: min(78vw, 300px);
+  margin: 10px auto 16px;
+}
+
+.love-wheel-pointer {
+  position: absolute;
+  top: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 4;
+  font-size: 1.35rem;
+  color: #fff;
+  filter: drop-shadow(0 2px 6px rgba(90, 39, 64, 0.45));
+  line-height: 1;
+}
+
+.love-wheel-disc {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  box-shadow:
+    0 8px 28px rgba(90, 39, 64, 0.35),
+    inset 0 0 0 4px rgba(255, 255, 255, 0.55);
+  overflow: hidden;
+}
+
+.love-wheel-bg {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+}
+
+.love-wheel-segment-label {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 14%;
+  pointer-events: none;
+}
+
+.love-wheel-segment-label > span {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  color: #fff;
+  text-shadow: 0 1px 4px rgba(90, 39, 64, 0.45);
+  font-size: 0.62rem;
+  font-weight: 700;
+  line-height: 1.1;
+  max-width: 56px;
+  text-align: center;
+}
+
+.love-wheel-segment-emoji {
+  font-size: 1.15rem;
+  line-height: 1;
+}
+
+.love-wheel-segment-text {
+  letter-spacing: 0.02em;
+}
+
+.love-wheel-hub {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  box-shadow: 0 4px 14px rgba(90, 39, 64, 0.28);
+  z-index: 3;
+  pointer-events: none;
+}
+
+.love-wheel-spin {
+  margin-top: 4px;
+  min-width: 200px;
+}
+
+.love-wheel-spin:disabled {
+  opacity: 0.75;
+  cursor: wait;
+}
+
+.love-wheel-coupon {
+  position: relative;
+  width: 100%;
+  max-width: 340px;
+  margin-top: 8px;
+  padding: 22px 20px 18px;
+  background: linear-gradient(145deg, #fff 0%, #fff5f9 100%);
+  border: 2px dashed var(--pink-400);
+  border-radius: 18px;
+  color: var(--text);
+  text-align: center;
+  box-shadow: 0 14px 32px rgba(214, 59, 110, 0.22);
+}
+
+.love-wheel-coupon-notch {
+  position: absolute;
+  top: 50%;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #ff8fb1;
+  transform: translateY(-50%);
+}
+
+.love-wheel-coupon-notch-left {
+  left: -10px;
+}
+
+.love-wheel-coupon-notch-right {
+  right: -10px;
+}
+
+.love-wheel-coupon-badge {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--pink-600);
+  margin-bottom: 6px;
+}
+
+.love-wheel-coupon-emoji {
+  font-size: 2.2rem;
+  line-height: 1;
+  margin-bottom: 6px;
+}
+
+.love-wheel-coupon-title {
+  font-family: 'Dancing Script', cursive;
+  font-size: 1.75rem;
+  color: var(--pink-700);
+  line-height: 1.2;
+  margin-bottom: 8px;
+}
+
+.love-wheel-coupon-detail {
+  font-size: 0.88rem;
+  color: var(--text-soft);
+  line-height: 1.45;
+  margin-bottom: 12px;
+}
+
+.love-wheel-coupon-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 0.78rem;
+  color: var(--text);
+  padding: 10px 0;
+  border-top: 1px solid var(--pink-100);
+  border-bottom: 1px solid var(--pink-100);
+  margin-bottom: 10px;
+}
+
+.love-wheel-coupon-foot {
+  font-size: 0.82rem;
+  color: var(--pink-600);
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.love-wheel-done {
+  margin-top: 12px;
+  font-size: 0.88rem;
+  color: #ffe1ec;
+  text-align: center;
+  font-weight: 500;
+}
+
 .leaflet-popup-content-wrapper {
   border-radius: 14px !important;
   padding: 0 !important;
