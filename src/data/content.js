@@ -1,28 +1,3 @@
-// ============================================================
-//  CONTEUDO DA SURPRESA FINAL - carta final e fotos.
-// ------------------------------------------------------------
-//  AGORA cada FOTO e cada CARTA ficam dentro de cada pergunta,
-//  em src/data/questions.js (campos "photo" e "card").
-//  Ao acertar uma pergunta, a foto + carta dela sao reveladas.
-//
-//  COMO ADICIONAR AS FOTOS (zero codigo):
-//  1. Coloque as imagens em:  src/assets/fotos/
-//     (formatos: jpg, jpeg, png, webp, gif, avif)
-//  2. Em cada pergunta (questions.js), aponte o campo "photo"
-//     para o NOME do arquivo (ex.: photo: 'foto2.jpg').
-//  3. Reinicie o npm run dev para as novas fotos serem detectadas.
-//
-//  COMO ADICIONAR O VIDEO DA CARTA FINAL (zero codigo):
-//  1. Coloque o arquivo em:  src/assets/videos/
-//     (formatos: mp4, webm, mov)
-//  2. Nome sugerido: video.mp4  (ou qualquer nome — o app
-//     detecta automaticamente; se houver varios, prioriza "video.*")
-//  3. Reinicie o npm run dev se o arquivo foi adicionado com o
-//     servidor ja rodando.
-//
-//  Aqui ficam: nome dela, carta final, video e assinatura.
-// ============================================================
-
 import { makePlaceholder } from '../assets/placeholderPhoto.js'
 
 // Nome dela (aparece na tela inicial e nas mensagens)
