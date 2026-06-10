@@ -44,5 +44,6 @@ WHERE key = 'admin_pin_hash';
 | timeline | 08:00 |
 | map | 11:00 |
 | hearts | 14:00 |
+| puzzle | 15:30 |
 | wheel | 17:00 |
 | quiz | 20:00 |

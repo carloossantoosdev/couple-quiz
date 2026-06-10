@@ -21,6 +21,26 @@ function getDefaultScheduleUnlock(storyId) {
   return row?.unlockAt ?? new Date(Date.now() + 86400000).toISOString()
 }
 
+function mergeStoryRows(remoteRows) {
+  const byId = new Map(
+    (remoteRows ?? []).map((row) => [row.story_id ?? row.storyId, row]),
+  )
+
+  return storySchedule
+    .map((local) => {
+      const remote = byId.get(local.storyId)
+      if (remote) return remote
+
+      return {
+        story_id: local.storyId,
+        title: local.title,
+        sort_order: local.sortOrder,
+        unlock_at: local.unlockAt,
+      }
+    })
+    .sort((a, b) => (a.sort_order ?? 0) - (b.sort_order ?? 0))
+}
+
 function isStoryUnlockedAt(unlockAt, now = new Date()) {
   return now >= new Date(unlockAt)
 }
@@ -50,14 +70,9 @@ export default function AdminPanel() {
 
     if (fetchError) {
       setError(fetchError.message)
-      setRows(storySchedule.map((s) => ({
-        story_id: s.storyId,
-        title: s.title,
-        sort_order: s.sortOrder,
-        unlock_at: s.unlockAt,
-      })))
+      setRows(mergeStoryRows([]))
     } else {
-      setRows(data ?? [])
+      setRows(mergeStoryRows(data))
       setError('')
     }
     setLoading(false)

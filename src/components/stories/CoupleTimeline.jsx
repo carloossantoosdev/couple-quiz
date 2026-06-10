@@ -54,7 +54,7 @@ export default function CoupleTimeline() {
 
           return (
             <motion.li
-              key={entry.year}
+              key={entry.id ?? `${entry.year}-${i}`}
               className={`couple-timeline__item ${isRight ? 'couple-timeline__item--right' : 'couple-timeline__item--left'}`}
               initial={{ opacity: 0, x: isRight ? 28 : -28 }}
               animate={{ opacity: 1, x: 0 }}

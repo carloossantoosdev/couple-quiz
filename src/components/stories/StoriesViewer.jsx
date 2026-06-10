@@ -6,6 +6,7 @@ import TimeTogetherSlide from './TimeTogetherSlide.jsx'
 import TimelineSlide from './TimelineSlide.jsx'
 import TravelMapSlide from './TravelMapSlide.jsx'
 import HeartHuntSlide from './HeartHuntSlide.jsx'
+import JigsawPuzzleSlide from './JigsawPuzzleSlide.jsx'
 import LoveWheelSlide from './LoveWheelSlide.jsx'
 import QuizIntroSlide from './QuizIntroSlide.jsx'
 import ValentinesCountdown, { LockedStorySlide } from './LockedStorySlide.jsx'
@@ -15,6 +16,7 @@ const SLIDES = [
   { id: 'timeline', title: 'Timeline', Component: TimelineSlide, duration: null },
   { id: 'map', title: 'Mapa', Component: TravelMapSlide, duration: null },
   { id: 'hearts', title: 'Caça aos corações', Component: HeartHuntSlide, duration: null },
+  { id: 'puzzle', title: 'Quebra-cabeça', Component: JigsawPuzzleSlide, duration: null },
   { id: 'wheel', title: 'Roleta da sorte', Component: LoveWheelSlide, duration: null },
   { id: 'quiz', title: quizStoryTitle, Component: QuizIntroSlide, duration: null },
 ]
@@ -31,6 +33,8 @@ const BLOCK_NAV_SELECTORS = [
   '.leaflet-control',
   '.heart-hunt-board',
   '.heart-hunt-heart',
+  '.jigsaw-board',
+  '.jigsaw-piece',
   '.love-wheel-shell',
   '.love-wheel-disc',
   '.love-wheel-spin',
@@ -65,6 +69,12 @@ export default function StoriesViewer() {
     complete: false,
     pct: 0,
   })
+  const [puzzleProgress, setPuzzleProgress] = useState({
+    count: 0,
+    total: 0,
+    complete: false,
+    pct: 0,
+  })
   const [wheelProgress, setWheelProgress] = useState({
     complete: false,
     pct: 0,
@@ -75,8 +85,9 @@ export default function StoriesViewer() {
   const isTimeline = slide.id === 'timeline'
   const isMap = slide.id === 'map'
   const isHearts = slide.id === 'hearts'
+  const isPuzzle = slide.id === 'puzzle'
   const isWheel = slide.id === 'wheel'
-  const isInteractive = isMap || isHearts || isWheel
+  const isInteractive = isMap || isHearts || isPuzzle || isWheel
   const currentUnlocked = isStoryUnlocked(slide.id)
 
   const unlockedSlideIds = useMemo(
@@ -118,6 +129,9 @@ export default function StoriesViewer() {
     if (slide.id !== 'hearts') {
       setHuntProgress({ count: 0, total: 0, complete: false, pct: 0 })
     }
+    if (slide.id !== 'puzzle') {
+      setPuzzleProgress({ count: 0, total: 0, complete: false, pct: 0 })
+    }
     if (slide.id !== 'wheel') {
       setWheelProgress({ complete: false, pct: 0 })
     }
@@ -141,6 +155,11 @@ export default function StoriesViewer() {
 
     if (isHearts) {
       setProgress(huntProgress.complete ? 100 : huntProgress.pct)
+      return
+    }
+
+    if (isPuzzle) {
+      setProgress(puzzleProgress.complete ? 100 : puzzleProgress.pct)
       return
     }
 
@@ -168,11 +187,13 @@ export default function StoriesViewer() {
     isTimeline,
     isMap,
     isHearts,
+    isPuzzle,
     isWheel,
     currentUnlocked,
     timelineScroll,
     mapProgress,
     huntProgress,
+    puzzleProgress,
     wheelProgress,
     goNext,
   ])
@@ -187,6 +208,10 @@ export default function StoriesViewer() {
 
   const handleHuntProgress = useCallback((state) => {
     setHuntProgress(state)
+  }, [])
+
+  const handlePuzzleProgress = useCallback((state) => {
+    setPuzzleProgress(state)
   }, [])
 
   const handleWheelProgress = useCallback((state) => {
@@ -213,7 +238,9 @@ export default function StoriesViewer() {
           ? 'Toque fora do mapa: direita avança · esquerda volta'
           : isHearts
             ? 'Toque fora da área do jogo: direita avança · esquerda volta'
-            : isWheel
+            : isPuzzle
+              ? 'Arraste as peças · toque fora do jogo para avançar ou voltar'
+              : isWheel
               ? 'Gire a roleta · toque fora dela para avançar ou voltar'
               : 'Toque à direita para avançar · esquerda para voltar'
 
@@ -231,6 +258,7 @@ export default function StoriesViewer() {
     if (isTimeline) return <TimelineSlide onScrollProgress={handleTimelineScroll} />
     if (isMap) return <TravelMapSlide onMapProgress={handleMapProgress} />
     if (isHearts) return <HeartHuntSlide onHuntProgress={handleHuntProgress} />
+    if (isPuzzle) return <JigsawPuzzleSlide onPuzzleProgress={handlePuzzleProgress} />
     if (isWheel) return <LoveWheelSlide onWheelProgress={handleWheelProgress} />
     return <slide.Component />
   }

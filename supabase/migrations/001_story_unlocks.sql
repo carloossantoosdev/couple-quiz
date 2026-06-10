@@ -54,15 +54,21 @@ insert into public.story_unlocks (story_id, title, sort_order, unlock_at) values
     (timestamp '2026-06-12 14:00:00' at time zone 'America/Sao_Paulo')
   ),
   (
+    'puzzle',
+    'Quebra-cabeça',
+    5,
+    (timestamp '2026-06-12 15:30:00' at time zone 'America/Sao_Paulo')
+  ),
+  (
     'wheel',
     'Roleta da sorte',
-    5,
+    6,
     (timestamp '2026-06-12 17:00:00' at time zone 'America/Sao_Paulo')
   ),
   (
     'quiz',
     'Quiz',
-    6,
+    7,
     (timestamp '2026-06-12 20:00:00' at time zone 'America/Sao_Paulo')
   );
 

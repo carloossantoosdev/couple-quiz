@@ -1205,6 +1205,152 @@ body {
   font-weight: 500;
 }
 
+/* ---------- Quebra-cabeça ---------- */
+.story-slide-puzzle {
+  align-items: stretch;
+  padding-bottom: 32px;
+}
+
+.story-slide-puzzle .story-title,
+.story-slide-puzzle .story-sub {
+  align-self: center;
+  text-align: center;
+}
+
+.jigsaw-progress {
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto 14px;
+}
+
+.jigsaw-progress span {
+  display: block;
+  font-size: 0.82rem;
+  opacity: 0.9;
+  margin-bottom: 6px;
+  text-align: center;
+}
+
+.jigsaw-progress-bar {
+  height: 4px;
+  border-radius: 99px;
+  background: rgba(255, 255, 255, 0.25);
+  overflow: hidden;
+}
+
+.jigsaw-progress-fill {
+  height: 100%;
+  background: #fff;
+  border-radius: 99px;
+  transition: width 0.35s ease;
+}
+
+.jigsaw-board {
+  display: grid;
+  gap: 3px;
+  width: min(88vw, 340px);
+  aspect-ratio: 1;
+  margin: 0 auto;
+  padding: 6px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 2px solid rgba(255, 255, 255, 0.22);
+  box-shadow:
+    inset 0 0 30px rgba(255, 140, 180, 0.12),
+    0 10px 28px rgba(180, 40, 90, 0.2);
+  touch-action: none;
+  user-select: none;
+}
+
+.jigsaw-cell {
+  position: relative;
+  min-width: 0;
+  min-height: 0;
+  border-radius: 6px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.jigsaw-piece {
+  width: 100%;
+  height: 100%;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.06);
+  cursor: grab;
+  touch-action: none;
+  -webkit-tap-highlight-color: transparent;
+  transition: box-shadow 0.2s ease, opacity 0.2s ease;
+}
+
+.jigsaw-piece.is-loading {
+  background-color: rgba(255, 255, 255, 0.12);
+}
+
+.jigsaw-piece.is-locked {
+  cursor: default;
+  border-color: rgba(255, 230, 120, 0.55);
+  box-shadow:
+    inset 0 0 0 2px rgba(255, 220, 100, 0.35),
+    0 0 12px rgba(255, 210, 80, 0.25);
+}
+
+.jigsaw-piece.is-dragging {
+  opacity: 0.35;
+  cursor: grabbing;
+}
+
+.jigsaw-piece.is-selected {
+  border-color: rgba(255, 255, 255, 0.85);
+  box-shadow:
+    inset 0 0 0 2px rgba(255, 255, 255, 0.55),
+    0 0 16px rgba(255, 255, 255, 0.35);
+}
+
+.jigsaw-cell.is-drop-target {
+  background: rgba(255, 255, 255, 0.18);
+  box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.45);
+}
+
+.jigsaw-piece:not(.is-locked):active {
+  cursor: grabbing;
+}
+
+.jigsaw-drag-ghost {
+  position: fixed;
+  z-index: 1200;
+  width: min(22vw, 88px);
+  height: min(22vw, 88px);
+  border-radius: 8px;
+  border: 2px solid rgba(255, 255, 255, 0.65);
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.28);
+  pointer-events: none;
+  transform: translate(-50%, -50%) scale(1.06);
+}
+
+.jigsaw-message {
+  margin: 14px auto 0;
+  max-width: 340px;
+  padding: 14px 18px;
+  background: rgba(255, 255, 255, 0.16);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: 16px;
+  font-family: 'Dancing Script', cursive;
+  font-size: 1.35rem;
+  line-height: 1.45;
+  color: #fff;
+  text-align: center;
+  backdrop-filter: blur(6px);
+}
+
+.jigsaw-done {
+  margin-top: 12px;
+  font-size: 0.88rem;
+  color: #ffe1ec;
+  text-align: center;
+  font-weight: 500;
+}
+
 /* ---------- Roleta da sorte do amor ---------- */
 .story-slide-wheel {
   align-items: center;

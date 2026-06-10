@@ -39,115 +39,197 @@ export const quizStoryTitle = 'Quiz'
 export const relationshipStart = '2018-01-28'
 
 // Timeline dos stories — marcos ano a ano na linha do tempo.
-// Campos: year, title (opcional), photo, quote
+// Campos: id (único), year, title (opcional), photo, quote
+// Fotos em src/assets/fotos/ — o ano no nome do arquivo define a ordem.
 export const timeline = [
   {
+    id: '2018-pedido',
     year: 2018,
-    title: 'O começo',
-    photo: 'colegio.jpg',
-    quote: 'O dia em que nossa história começou. Quem diria que dali viria tudo isso? 💕',
+    title: 'Pedido de namoro',
+    photo: '2018pedidonamoro.jpeg',
+    quote: 'O dia em que nossa história começou de verdade. Quem diria que dali viria tudo isso? 💕',
   },
   {
+    id: '2018-fimdeano',
+    year: 2018,
+    title: 'Fim de ano',
+    photo: '2018fimdeano.jpeg',
+    quote: 'Nosso primeiro fim de ano juntos, cheio de planos e carinho. 🎆',
+  },
+  {
+    id: '2019-primeira-viagem',
     year: 2019,
-    title: 'Primeiro Viagem juntos',
-    photo: 'praia.jpeg',
-    quote: 'Primeiro Viagem juntos, primeiras memórias guardadas no coração. 🌊',
+    title: 'Primeira viagem',
+    photo: '2019primeiraviagem.jpeg',
+    quote: 'Maracaípe, mar e sorrisos bobos — o primeiro de muitos capítulos juntos. 🌊',
   },
   {
+    id: '2020-uniao',
     year: 2020,
-    title: 'Maracaipe',
-    photo: 'maracaipe.jpg',
-    quote: 'Mais um ano escrevendo capítulos lindos juntos. ☀️',
+    title: 'União estável',
+    photo: '2020uniaoestavel.jpeg',
+    quote: 'Oficialmente nós, para todo sempre. 💍',
   },
   {
+    id: '2021-pandemia',
     year: 2021,
+    title: 'Juntos em casa',
+    photo: '2021pandemia.jpeg',
+    quote: 'Mesmo na pandemia, nosso lar virou o lugar mais seguro do mundo. 🏠',
+  },
+  {
+    id: '2022-maragogi',
+    year: 2022,
+    title: 'Maragogi',
+    photo: '2022maragogi2.jpeg',
+    quote: 'Piscinas naturais e memórias azuis demais. 🐠',
+  },
+  {
+    id: '2023-pipa',
+    year: 2023,
+    title: 'Pipa',
+    photo: '2023pipa.jpeg',
+    quote: 'Falésias, pôr do sol e amor no ar. 🌅',
+  },
+  {
+    id: '2023-pipa2',
+    year: 2023,
+    title: 'Pipa de novo',
+    photo: '2023pipa2.jpeg',
+    quote: 'Voltar para Pipa só provou que a gente nunca se cansa desse lugar. 💕',
+  },
+  {
+    id: '2023-pipa3',
+    year: 2023,
+    title: 'Mais um dia em Pipa',
+    photo: '2023pipa3.jpeg',
+    quote: 'Cada foto aqui é um pedacinho de felicidade guardado. 📸',
+  },
+  {
+    id: '2023-gravata',
+    year: 2023,
+    title: 'Gravatá',
+    photo: '2023gravata.jpeg',
+    quote: 'Frio gostoso, serra e abraço apertado. ☁️',
+  },
+  {
+    id: '2023-corrida',
+    year: 2023,
+    title: 'Corrida 5 km',
+    photo: '2023corrida5km.jpeg',
+    quote: 'Correndo lado a lado — nossa meta é sempre chegar juntos. 🏃‍♂️💕',
+  },
+  {
+    id: 'piranhas-alagoas',
+    year: 2024,
+    title: 'Piranhas Alagoas',
+    photo: 'piranhasAlagoas.jpeg',
+    quote: 'Viagem para Piranhas Alagoas, uma das melhores viagens que já fizemos juntos.',
+  },
+  {
+    id: '2024-belo-horizonte',
+    year: 2024,
+    title: 'Belo Horizonte',
+    photo: 'BhprimeiraviagemAviao.jpeg',
+    quote: 'A primeira viagem de aviãom, Obrigado por ser a pessoa que voce é. 💕',
+  },
+  {
+    id: '2024-belo-horizonte1',
+    year: 2024,
+    title: 'Belo Horizonte',
+    photo: 'bh.jpeg',
+    quote: 'Belo Horizonte, novamente.',
+  },
+  {
+    id: '2024-gramado',
+    year: 2024,
+    title: 'Gramado',
+    photo: 'gramado.jpeg',
+    quote: 'Viagem para Gramado, uma das melhores viagens que já fizemos juntos.',
+  },
+  {
+    id: '2024-gramado2',
+    year: 2024,
+    title: 'Gramado de novo',
+    photo: 'gramadopedidocasamento.jpeg',
+    quote: 'Gramado, gramado, gramado... De novo?',
+  },
+  {
+    id: '2025-chile',
+    year: 2025,
     title: 'Chile',
     photo: 'chile.jpeg',
-    quote: 'Viagens, risadas e a certeza de que somos time. 🏔️',
+    quote: 'Neve, montanhas e a gente descobrindo o mundo juntos. 🏔️',
   },
   {
-    year: 2022,
-    title: 'Nossa trilha sonora',
-    photo: 'ferrugem.jpg',
-    quote: 'Música, abraços e amor que só cresce. 🎶',
-  },
-  {
-    year: 2023,
-    title: 'Eu te escolhi',
-    photo: 'teescolhi.jpg',
-    quote: 'Eu te escolheria de novo — mil vezes, em qualquer universo. 💖',
-  },
-  {
-    year: 2024,
-    title: 'Nossa viagem favorita',
-    photo: 'rio.jpg',
-    quote: 'Viagens, risadas e a certeza de que somos time. 🏔️',
-  },
-  {
-    year: 2025,
-    title: 'Nossa viagem favorita',
-    photo: 'rio.jpg',
-    quote: 'Viagens, risadas e a certeza de que somos time. 🏔️',
-  },
-  {
+    id: '2026',
     year: 2026,
-    title: 'Nossa viagem favorita',
-    photo: 'rio.jpg',
-    quote: 'Viagens, risadas e a certeza de que somos time. 🏔️',
-  },
+    title: '2026',
+    photo: '2026.jpeg',
+    quote: '2026, 2026, 2026... De novo?',
+  }
 ]
 
 // Mapa de viagens — lugares marcados no story do mapa.
 // lat/lng: coordenadas (Google Maps → clique direito → copiar coordenadas).
-// photo: arquivo em src/assets/fotos/
+// photo: arquivo em src/assets/fotos/ (use o nome exato do arquivo).
 export const travelPlaces = [
-  {
-    id: 'recife',
-    name: 'Recife',
-    lat: -8.0476,
-    lng: -34.877,
-    photo: 'colegio.jpg',
-    memory: 'Onde nos conhecemos. O começo de tudo. 💕',
-  },
-  {
-    id: 'maracaipe',
-    name: 'Maracaípe',
-    lat: -8.6279,
-    lng: -35.0425,
-    photo: 'maracaipe.jpg',
-    memory: 'Sol, mar e momentos que ficaram pra sempre. ☀️',
-  },
-  {
-    id: 'Gramado',
-    name: 'Gramado',
-    lat: -8.5044,
-    lng: -35.0044,
-    photo: 'gramado.jpg',
-    memory: 'Primeiro Viagem juntos na areia. 🌊',
-  },
+  
   {
     id: 'chile',
     name: 'Chile',
     lat: -33.4489,
     lng: -70.6693,
     photo: 'chile.jpeg',
-    memory: 'Neve, montanhas e a gente descobrindo o mundo. ChiChilele🏔️',
+    memory: 'Neve, montanhas e a gente descobrindo o mundo juntos. 🏔️',
   },
   {
-    id: 'rio',
-    name: 'Rio de Janeiro',
-    lat: -22.9068,
-    lng: -43.1729,
-    photo: 'rio.jpg',
-    memory: 'Cidade maravilhosa, memórias maravilhosas. 🌆',
+    id: 'maragogi',
+    name: 'Maragogi',
+    lat: -9.0122,
+    lng: -35.2227,
+    photo: '2022maragogi2.jpeg',
+    memory: 'Piscinas naturais e memórias azuis demais. 🐠',
   },
   {
-    id: 'show',
-    name: 'Nosso show',
-    lat: -23.5505,
-    lng: -46.6333,
-    photo: 'ferrugem.jpg',
-    memory: 'Música, Ferrugem e a trilha sonora do nosso amor. 🎶',
+    id: 'pipa2',
+    name: 'Pipa',
+    lat: -6.2294,
+    lng: -35.0489,
+    photo: '2023pipa2.jpeg',
+    memory: 'Falésias, pôr do sol e amor no ar. 🌅',
+  },
+  {
+    id: 'pipa3',
+    name: 'Pipa',
+    lat: -6.2210,
+    lng: -35.0410,
+    photo: '2023pipa3.jpeg',
+    memory: 'Pipa, pipa, pipa... De novo?',
+  },
+  {
+    id: 'gravata',
+    name: 'Gravatá',
+    lat: -8.2011,
+    lng: -35.5647,
+    photo: '2023gravata.jpeg',
+    memory: 'Frio gostoso, serra e abraço apertado. ☁️',
+  },
+  {
+    id: 'corrida-5km',
+    name: 'Recife',
+    lat: -8.0476,
+    lng: -34.877,
+    photo: '2023corrida5km.jpeg',
+    memory: 'Correndo lado a lado — nossa meta é sempre chegar juntos. 🏃‍♂️💕',
+  },
+  {
+    id: 'primeira-viagem',
+    name: 'Maracaípe',
+    lat: -8.5131,
+    lng: -35.0421,
+    photo: '2019primeiraviagem.jpeg',
+    memory: 'Essa foto representa bem nosso primeiro ano de namoro. Sorrisos bobos que me trouxeram uma felicidade imensa. Obrigado por ser tanto da minha vida. Eu te amo 💕',
   },
 ]
 
@@ -211,6 +293,17 @@ export const loveWheelPrizes = [
   },
 ]
 
+// Quebra-cabeça com foto do casal (story interativo).
+// Coloque a imagem em src/assets/fotos/ e aponte "photo" para o nome do arquivo.
+export const jigsawPuzzle = {
+  photo: 'fotomaisespecial.jpg',
+  rows: 4,
+  cols: 4,
+  title: 'Quebra-cabeça do amor',
+  subtitle: 'Arraste e solte em outra peça — ou toque duas para trocar 🧩',
+  completionMessage: 'Prontinho! Mais uma memória nossa montada com amor 💕',
+}
+
 // Desbloqueio progressivo dos stories (Dia dos Namorados).
 export const valentinesDay = '2026-06-12'
 
@@ -221,8 +314,9 @@ export const storySchedule = [
   { storyId: 'timeline', title: 'Timeline', sortOrder: 2, unlockAt: '2026-06-12T08:00:00-03:00' },
   { storyId: 'map', title: 'Mapa', sortOrder: 3, unlockAt: '2026-06-12T11:00:00-03:00' },
   { storyId: 'hearts', title: 'Caça aos corações', sortOrder: 4, unlockAt: '2026-06-12T14:00:00-03:00' },
-  { storyId: 'wheel', title: 'Roleta da sorte', sortOrder: 5, unlockAt: '2026-06-12T17:00:00-03:00' },
-  { storyId: 'quiz', title: 'Quiz', sortOrder: 6, unlockAt: '2026-06-12T20:00:00-03:00' },
+  { storyId: 'puzzle', title: 'Quebra-cabeça', sortOrder: 5, unlockAt: '2026-06-12T15:30:00-03:00' },
+  { storyId: 'wheel', title: 'Roleta da sorte', sortOrder: 6, unlockAt: '2026-06-12T17:00:00-03:00' },
+  { storyId: 'quiz', title: 'Quiz', sortOrder: 7, unlockAt: '2026-06-12T20:00:00-03:00' },
 ]
 
 // Assinatura da carta final
@@ -302,6 +396,12 @@ export function resolveTravelPhoto(place) {
   const key = stem(place.photo || place.id)
   if (key && photoByStem[key]) return photoByStem[key]
   return makePlaceholder(place.name || 'Nossa viagem')
+}
+
+export function resolvePuzzlePhoto(config) {
+  const key = stem(config?.photo || 'puzzle')
+  if (key && photoByStem[key]) return photoByStem[key]
+  return makePlaceholder(config?.title || 'Nossa foto')
 }
 
 export function formatRelationshipDate(isoDate) {
