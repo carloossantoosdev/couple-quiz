@@ -2,6 +2,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { useStoryUnlocks } from '../../hooks/useStoryUnlocks.js'
 import { quizStoryTitle } from '../../data/content.js'
+import { envBadgeClass, envLabel, isStaging } from '../../lib/env.js'
 import TimeTogetherSlide from './TimeTogetherSlide.jsx'
 import TimelineSlide from './TimelineSlide.jsx'
 import TravelMapSlide from './TravelMapSlide.jsx'
@@ -238,6 +239,11 @@ export default function StoriesViewer() {
   if (unlockLoading) {
     return (
       <div className="stories stories-loading">
+        {isStaging && (
+          <div className={envBadgeClass} role="status">
+            {envLabel}
+          </div>
+        )}
         <p className="stories-hint">Carregando surpresas...</p>
       </div>
     )
@@ -246,6 +252,11 @@ export default function StoriesViewer() {
   if (!anyUnlocked) {
     return (
       <div className="stories">
+        {isStaging && (
+          <div className={envBadgeClass} role="status">
+            {envLabel}
+          </div>
+        )}
         <div className="stories-progress">
           {SLIDES.map((s) => (
             <div key={s.id} className="stories-progress-track is-locked">
@@ -268,6 +279,11 @@ export default function StoriesViewer() {
       onPointerUp={() => !isTimeline && !isInteractive && setPaused(false)}
       onPointerLeave={() => !isTimeline && !isInteractive && setPaused(false)}
     >
+      {isStaging && (
+        <div className={envBadgeClass} role="status">
+          {envLabel}
+        </div>
+      )}
       <div className="stories-progress">
         {SLIDES.map((s, i) => {
           const unlocked = isStoryUnlocked(s.id)

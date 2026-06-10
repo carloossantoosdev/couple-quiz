@@ -1745,6 +1745,45 @@ body {
   color: var(--text-soft);
 }
 
+.env-badge {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  padding: 6px 12px;
+  text-align: center;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.env-badge-local {
+  background: #e8f4fd;
+  color: #1565c0;
+}
+
+.env-badge-staging {
+  background: #fff3cd;
+  color: #856404;
+}
+
+.env-badge-prod {
+  background: #f8d7da;
+  color: #721c24;
+}
+
+.admin-page .env-badge {
+  position: relative;
+  margin-bottom: 12px;
+  border-radius: 8px;
+}
+
+.stories .env-badge {
+  pointer-events: none;
+}
+
 .stories .music-btn {
   z-index: 30;
 }

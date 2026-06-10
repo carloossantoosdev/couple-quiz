@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import { appTitle, storySchedule } from '../../data/content.js'
+import { envBadgeClass, envLabel } from '../../lib/env.js'
 import { isSupabaseConfigured, supabase } from '../../lib/supabase.js'
 
 function formatScheduleInput(isoString) {
@@ -183,6 +184,9 @@ export default function AdminPanel() {
 
   return (
     <div className="admin-page">
+      <div className={envBadgeClass} role="status">
+        {envLabel}
+      </div>
       <div className="admin-card card">
         <h1 className="title-script">Admin — Stories</h1>
         <p className="subtitle">{appTitle} · admin</p>

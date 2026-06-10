@@ -87,6 +87,10 @@ Isso cria:
 
 Se preferir GitHub Pages em vez da Vercel, use **Settings → Pages → GitHub Actions** no repositório. A URL será `https://SEU-USUARIO.github.io/couple-quiz/`.
 
+## Ambientes
+
+Producao (`main`), homologacao (`develop` + Preview Vercel) e local usam bancos Supabase separados. Detalhes, PINs e variaveis: [`docs/environments.md`](docs/environments.md).
+
 ## Personalizar
 
 | O quê | Onde |
