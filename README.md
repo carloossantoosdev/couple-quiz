@@ -38,6 +38,10 @@ npm install
 npm run dev
 ```
 
+Abre em **http://localhost:5174** (a porta 5174 evita conflito com cache de outros projetos na 5173).
+
+Se aparecer tela branca, limpe o cache do navegador ou abra em aba anônima.
+
 Build de produção:
 
 ```bash
