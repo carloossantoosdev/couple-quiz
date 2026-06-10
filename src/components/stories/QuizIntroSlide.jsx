@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion'
 import { useQuizStore } from '../../store/quizStore.js'
-import { coupleName } from '../../data/content.js'
+import { coupleName, quizStoryTitle } from '../../data/content.js'
 
 export default function QuizIntroSlide() {
   const start = useQuizStore((s) => s.start)
@@ -21,7 +21,7 @@ export default function QuizIntroSlide() {
         initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
       >
-        Quiz do Casal
+        {quizStoryTitle}
       </motion.h2>
 
       <motion.p

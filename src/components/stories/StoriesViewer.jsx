@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { useStoryUnlocks } from '../../hooks/useStoryUnlocks.js'
+import { quizStoryTitle } from '../../data/content.js'
 import TimeTogetherSlide from './TimeTogetherSlide.jsx'
 import TimelineSlide from './TimelineSlide.jsx'
 import TravelMapSlide from './TravelMapSlide.jsx'
@@ -15,7 +16,7 @@ const SLIDES = [
   { id: 'map', title: 'Mapa', Component: TravelMapSlide, duration: null },
   { id: 'hearts', title: 'Caça aos corações', Component: HeartHuntSlide, duration: null },
   { id: 'wheel', title: 'Roleta da sorte', Component: LoveWheelSlide, duration: null },
-  { id: 'quiz', title: 'Quiz do Casal', Component: QuizIntroSlide, duration: null },
+  { id: 'quiz', title: quizStoryTitle, Component: QuizIntroSlide, duration: null },
 ]
 
 const SLIDE_IDS = SLIDES.map((s) => s.id)

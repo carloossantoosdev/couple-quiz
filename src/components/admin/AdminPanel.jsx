@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
-import { storySchedule } from '../../data/content.js'
+import { appTitle, storySchedule } from '../../data/content.js'
 import { isSupabaseConfigured, supabase } from '../../lib/supabase.js'
 
 function formatScheduleInput(isoString) {
@@ -185,7 +185,7 @@ export default function AdminPanel() {
     <div className="admin-page">
       <div className="admin-card card">
         <h1 className="title-script">Admin — Stories</h1>
-        <p className="subtitle">Projeto couple-quiz · org Carlos</p>
+        <p className="subtitle">{appTitle} · admin</p>
 
         {!isSupabaseConfigured && (
           <p className="admin-alert admin-alert-warn">

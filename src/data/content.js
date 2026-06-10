@@ -28,6 +28,12 @@ import { makePlaceholder } from '../assets/placeholderPhoto.js'
 // Nome dela (aparece na tela inicial e nas mensagens)
 export const coupleName = 'Meu Amor'
 
+// Nome do app (aba do navegador, titulos visuais)
+export const appTitle = 'Lovebox'
+
+// Titulo do ultimo story (fase do quiz)
+export const quizStoryTitle = 'Quiz'
+
 // Data em que vocês começaram a namorar (formato AAAA-MM-DD).
 // Você informou 28/01/2028 — confira o ano; se for 2020, 2018 etc., edite aqui.
 export const relationshipStart = '2018-01-28'

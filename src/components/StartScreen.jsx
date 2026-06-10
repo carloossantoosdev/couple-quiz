@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion'
 import { useQuizStore } from '../store/quizStore.js'
-import { coupleName } from '../data/content.js'
+import { coupleName, appTitle } from '../data/content.js'
 
 export default function StartScreen() {
   const start = useQuizStore((s) => s.start)
@@ -16,7 +16,7 @@ export default function StartScreen() {
         💖
       </motion.div>
 
-      <h1 className="title-script">Quiz do Casal</h1>
+      <h1 className="title-script">{appTitle}</h1>
       <p className="subtitle">
         Olá, <strong>{coupleName}</strong>! Será que você lembra de tudo sobre a
         gente?
