@@ -3,16 +3,29 @@ import { AnimatePresence, motion } from 'framer-motion'
 import TimeTogetherSlide from './TimeTogetherSlide.jsx'
 import TimelineSlide from './TimelineSlide.jsx'
 import TravelMapSlide from './TravelMapSlide.jsx'
+import HeartHuntSlide from './HeartHuntSlide.jsx'
 import QuizIntroSlide from './QuizIntroSlide.jsx'
 
 const SLIDES = [
   { id: 'time', Component: TimeTogetherSlide, duration: 18000 },
   { id: 'timeline', Component: TimelineSlide, duration: null },
   { id: 'map', Component: TravelMapSlide, duration: null },
+  { id: 'hearts', Component: HeartHuntSlide, duration: null },
   { id: 'quiz', Component: QuizIntroSlide, duration: null },
 ]
 
 const SWIPE_THRESHOLD = 60
+
+const BLOCK_NAV_SELECTORS = [
+  '.travel-map-shell',
+  '.travel-map',
+  '.leaflet-container',
+  '.leaflet-pane',
+  '.leaflet-popup',
+  '.leaflet-control',
+  '.heart-hunt-board',
+  '.heart-hunt-heart',
+].join(', ')
 
 export default function StoriesViewer() {
   const [index, setIndex] = useState(0)
@@ -25,12 +38,20 @@ export default function StoriesViewer() {
     complete: false,
     pct: 0,
   })
+  const [huntProgress, setHuntProgress] = useState({
+    count: 0,
+    total: 0,
+    complete: false,
+    pct: 0,
+  })
 
   const slide = SLIDES[index]
   const Slide = slide.Component
   const isLast = index >= SLIDES.length - 1
   const isTimeline = slide.id === 'timeline'
   const isMap = slide.id === 'map'
+  const isHearts = slide.id === 'hearts'
+  const isInteractive = isMap || isHearts
 
   const goNext = useCallback(() => {
     if (isLast) return
@@ -51,6 +72,9 @@ export default function StoriesViewer() {
     if (slide.id !== 'map') {
       setMapProgress({ count: 0, total: 0, complete: false, pct: 0 })
     }
+    if (slide.id !== 'hearts') {
+      setHuntProgress({ count: 0, total: 0, complete: false, pct: 0 })
+    }
   }, [index, slide.id])
 
   useEffect(() => {
@@ -61,6 +85,11 @@ export default function StoriesViewer() {
 
     if (isMap) {
       setProgress(mapProgress.complete ? 100 : mapProgress.pct)
+      return
+    }
+
+    if (isHearts) {
+      setProgress(huntProgress.complete ? 100 : huntProgress.pct)
       return
     }
 
@@ -82,8 +111,10 @@ export default function StoriesViewer() {
     slide.id,
     isTimeline,
     isMap,
+    isHearts,
     timelineScroll,
     mapProgress,
+    huntProgress,
     goNext,
   ])
 
@@ -95,15 +126,13 @@ export default function StoriesViewer() {
     setMapProgress(state)
   }, [])
 
+  const handleHuntProgress = useCallback((state) => {
+    setHuntProgress(state)
+  }, [])
+
   const handleTap = (e) => {
     if (e.target.closest('button, a, input, textarea')) return
-    if (
-      e.target.closest(
-        '.travel-map-shell, .travel-map, .leaflet-container, .leaflet-pane, .leaflet-popup, .leaflet-control',
-      )
-    ) {
-      return
-    }
+    if (e.target.closest(BLOCK_NAV_SELECTORS)) return
 
     const x = e.clientX
     const third = window.innerWidth / 3
@@ -115,20 +144,23 @@ export default function StoriesViewer() {
     ? 'Toque em Começar 💘'
     : isMap
       ? 'Toque fora do mapa: direita avança · esquerda volta'
-      : 'Toque à direita para avançar · esquerda para voltar'
+      : isHearts
+        ? 'Toque fora da área do jogo: direita avança · esquerda volta'
+        : 'Toque à direita para avançar · esquerda para voltar'
 
   const renderSlide = () => {
     if (isTimeline) return <TimelineSlide onScrollProgress={handleTimelineScroll} />
     if (isMap) return <TravelMapSlide onMapProgress={handleMapProgress} />
+    if (isHearts) return <HeartHuntSlide onHuntProgress={handleHuntProgress} />
     return <Slide />
   }
 
   return (
     <div
       className="stories"
-      onPointerDown={() => !isTimeline && !isMap && setPaused(true)}
-      onPointerUp={() => !isTimeline && !isMap && setPaused(false)}
-      onPointerLeave={() => !isTimeline && !isMap && setPaused(false)}
+      onPointerDown={() => !isTimeline && !isInteractive && setPaused(true)}
+      onPointerUp={() => !isTimeline && !isInteractive && setPaused(false)}
+      onPointerLeave={() => !isTimeline && !isInteractive && setPaused(false)}
     >
       <div className="stories-progress">
         {SLIDES.map((s, i) => (
@@ -153,11 +185,11 @@ export default function StoriesViewer() {
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.98 }}
             transition={{ duration: 0.35 }}
-            drag={isMap ? false : 'x'}
+            drag={isInteractive ? false : 'x'}
             dragConstraints={{ left: 0, right: 0 }}
             dragElastic={0.12}
             onDragEnd={(_, info) => {
-              if (isMap) return
+              if (isInteractive) return
               if (info.offset.x < -SWIPE_THRESHOLD) goNext()
               else if (info.offset.x > SWIPE_THRESHOLD) goPrev()
             }}

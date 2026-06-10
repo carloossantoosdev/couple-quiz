@@ -145,6 +145,19 @@ export const travelPlaces = [
   },
 ]
 
+// Caça aos corações — mini-jogo nos stories.
+// x e y: posição em % dentro da área do jogo (0–100).
+export const heartHuntItems = [
+  { id: 'h1', x: 14, y: 22, message: 'Seu sorriso ilumina meus dias. 😊' },
+  { id: 'h2', x: 78, y: 18, message: 'Você é meu lugar favorito no mundo. 🏠' },
+  { id: 'h3', x: 22, y: 52, message: 'Cada viagem com você vira memória eterna. ✈️' },
+  { id: 'h4', x: 68, y: 48, message: 'Seu abraço é meu refúgio. 🤗' },
+  { id: 'h5', x: 44, y: 34, message: 'Te escolheria em todas as vidas. 💕' },
+  { id: 'h6', x: 12, y: 78, message: 'Você me faz querer ser melhor. 🌟' },
+  { id: 'h7', x: 82, y: 72, message: 'Nossa história é a minha favorita. 📖' },
+  { id: 'h8', x: 52, y: 68, message: 'Feliz Dia dos Namorados, meu amor! 💖' },
+]
+
 // Assinatura da carta final
 export const signature = 'Com todo o meu amor,\nVocê-sabe-quem 💌'
 

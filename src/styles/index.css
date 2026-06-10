@@ -1105,6 +1105,106 @@ body {
   font-weight: 500;
 }
 
+/* ---------- Caça aos corações ---------- */
+.story-slide-hunt {
+  align-items: stretch;
+  padding-bottom: 36px;
+}
+
+.story-slide-hunt .story-title,
+.story-slide-hunt .story-sub {
+  align-self: center;
+  text-align: center;
+}
+
+.heart-hunt-progress {
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto 14px;
+}
+
+.heart-hunt-progress span {
+  display: block;
+  font-size: 0.82rem;
+  opacity: 0.9;
+  margin-bottom: 6px;
+  text-align: center;
+}
+
+.heart-hunt-progress-bar {
+  height: 4px;
+  border-radius: 99px;
+  background: rgba(255, 255, 255, 0.25);
+  overflow: hidden;
+}
+
+.heart-hunt-progress-fill {
+  height: 100%;
+  background: #fff;
+  border-radius: 99px;
+  transition: width 0.35s ease;
+}
+
+.heart-hunt-board {
+  position: relative;
+  width: 100%;
+  max-width: 420px;
+  height: min(46dvh, 380px);
+  margin: 0 auto;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 2px dashed rgba(255, 255, 255, 0.28);
+  overflow: hidden;
+  box-shadow: inset 0 0 40px rgba(255, 140, 180, 0.12);
+}
+
+.heart-hunt-heart {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  border: none;
+  background: transparent;
+  font-size: clamp(1.6rem, 5vw, 2rem);
+  cursor: pointer;
+  line-height: 1;
+  padding: 8px;
+  filter: drop-shadow(0 4px 10px rgba(214, 59, 110, 0.55));
+  animation: heart-hunt-pulse 2s ease-in-out infinite;
+  -webkit-tap-highlight-color: transparent;
+}
+
+@keyframes heart-hunt-pulse {
+  0%,
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.15);
+  }
+}
+
+.heart-hunt-message {
+  margin: 14px auto 0;
+  max-width: 340px;
+  padding: 14px 18px;
+  background: rgba(255, 255, 255, 0.16);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: 16px;
+  font-family: 'Dancing Script', cursive;
+  font-size: 1.35rem;
+  line-height: 1.45;
+  color: #fff;
+  text-align: center;
+  backdrop-filter: blur(6px);
+}
+
+.heart-hunt-done {
+  margin-top: 12px;
+  font-size: 0.88rem;
+  color: #ffe1ec;
+  text-align: center;
+  font-weight: 500;
+}
+
 .leaflet-popup-content-wrapper {
   border-radius: 14px !important;
   padding: 0 !important;
