@@ -205,6 +205,20 @@ export const loveWheelPrizes = [
   },
 ]
 
+// Desbloqueio progressivo dos stories (Dia dos Namorados).
+export const valentinesDay = '2026-06-12'
+
+// Fallback local quando VITE_UNLOCK_MODE=local ou Supabase indisponivel.
+// Horarios em America/Sao_Paulo (BRT).
+export const storySchedule = [
+  { storyId: 'time', title: 'Tempo juntos', sortOrder: 1, unlockAt: '2026-06-12T00:00:00-03:00' },
+  { storyId: 'timeline', title: 'Timeline', sortOrder: 2, unlockAt: '2026-06-12T08:00:00-03:00' },
+  { storyId: 'map', title: 'Mapa', sortOrder: 3, unlockAt: '2026-06-12T11:00:00-03:00' },
+  { storyId: 'hearts', title: 'Caça aos corações', sortOrder: 4, unlockAt: '2026-06-12T14:00:00-03:00' },
+  { storyId: 'wheel', title: 'Roleta da sorte', sortOrder: 5, unlockAt: '2026-06-12T17:00:00-03:00' },
+  { storyId: 'quiz', title: 'Quiz', sortOrder: 6, unlockAt: '2026-06-12T20:00:00-03:00' },
+]
+
 // Assinatura da carta final
 export const signature = 'Com todo o meu amor,\nVocê-sabe-quem 💌'
 

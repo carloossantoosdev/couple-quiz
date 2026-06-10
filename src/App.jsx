@@ -1,6 +1,7 @@
 import { AnimatePresence, motion } from 'framer-motion'
 import { useQuizStore } from './store/quizStore.js'
 import StoriesViewer from './components/stories/StoriesViewer.jsx'
+import AdminPanel from './components/admin/AdminPanel.jsx'
 import StartScreen from './components/StartScreen.jsx'
 import QuestionCard from './components/QuestionCard.jsx'
 import ResultScreen from './components/ResultScreen.jsx'
@@ -17,6 +18,15 @@ const screens = {
 
 export default function App() {
   const status = useQuizStore((s) => s.status)
+  const isAdmin = window.location.pathname === '/admin'
+
+  if (isAdmin) {
+    return (
+      <div className="app">
+        <AdminPanel />
+      </div>
+    )
+  }
 
   if (status === 'stories') {
     return (

@@ -1,21 +1,24 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
+import { useStoryUnlocks } from '../../hooks/useStoryUnlocks.js'
 import TimeTogetherSlide from './TimeTogetherSlide.jsx'
 import TimelineSlide from './TimelineSlide.jsx'
 import TravelMapSlide from './TravelMapSlide.jsx'
 import HeartHuntSlide from './HeartHuntSlide.jsx'
 import LoveWheelSlide from './LoveWheelSlide.jsx'
 import QuizIntroSlide from './QuizIntroSlide.jsx'
+import ValentinesCountdown, { LockedStorySlide } from './LockedStorySlide.jsx'
 
 const SLIDES = [
-  { id: 'time', Component: TimeTogetherSlide, duration: 18000 },
-  { id: 'timeline', Component: TimelineSlide, duration: null },
-  { id: 'map', Component: TravelMapSlide, duration: null },
-  { id: 'hearts', Component: HeartHuntSlide, duration: null },
-  { id: 'wheel', Component: LoveWheelSlide, duration: null },
-  { id: 'quiz', Component: QuizIntroSlide, duration: null },
+  { id: 'time', title: 'Tempo juntos', Component: TimeTogetherSlide, duration: 18000 },
+  { id: 'timeline', title: 'Timeline', Component: TimelineSlide, duration: null },
+  { id: 'map', title: 'Mapa', Component: TravelMapSlide, duration: null },
+  { id: 'hearts', title: 'Caça aos corações', Component: HeartHuntSlide, duration: null },
+  { id: 'wheel', title: 'Roleta da sorte', Component: LoveWheelSlide, duration: null },
+  { id: 'quiz', title: 'Quiz do Casal', Component: QuizIntroSlide, duration: null },
 ]
 
+const SLIDE_IDS = SLIDES.map((s) => s.id)
 const SWIPE_THRESHOLD = 60
 
 const BLOCK_NAV_SELECTORS = [
@@ -34,9 +37,20 @@ const BLOCK_NAV_SELECTORS = [
 ].join(', ')
 
 export default function StoriesViewer() {
+  const {
+    loading: unlockLoading,
+    anyUnlocked,
+    firstUnlockAt,
+    isStoryUnlocked,
+    getUnlockAt,
+    getUnlockLabel,
+    firstUnlockedIndex,
+  } = useStoryUnlocks()
+
   const [index, setIndex] = useState(0)
   const [progress, setProgress] = useState(0)
   const [paused, setPaused] = useState(false)
+  const [hasInitializedIndex, setHasInitializedIndex] = useState(false)
   const [timelineScroll, setTimelineScroll] = useState({ pct: 0, atBottom: false })
   const [mapProgress, setMapProgress] = useState({
     count: 0,
@@ -56,13 +70,18 @@ export default function StoriesViewer() {
   })
 
   const slide = SLIDES[index]
-  const Slide = slide.Component
   const isLast = index >= SLIDES.length - 1
   const isTimeline = slide.id === 'timeline'
   const isMap = slide.id === 'map'
   const isHearts = slide.id === 'hearts'
   const isWheel = slide.id === 'wheel'
   const isInteractive = isMap || isHearts || isWheel
+  const currentUnlocked = isStoryUnlocked(slide.id)
+
+  const unlockedSlideIds = useMemo(
+    () => SLIDE_IDS.filter((id) => isStoryUnlocked(id)),
+    [isStoryUnlocked],
+  )
 
   const goNext = useCallback(() => {
     if (isLast) return
@@ -75,6 +94,18 @@ export default function StoriesViewer() {
     setIndex((i) => i - 1)
     setProgress(0)
   }, [index])
+
+  useEffect(() => {
+    if (unlockLoading || !anyUnlocked || hasInitializedIndex) return
+    setIndex(firstUnlockedIndex(SLIDE_IDS))
+    setProgress(0)
+    setHasInitializedIndex(true)
+  }, [unlockLoading, anyUnlocked, hasInitializedIndex, firstUnlockedIndex])
+
+  useEffect(() => {
+    if (anyUnlocked) return
+    setHasInitializedIndex(false)
+  }, [anyUnlocked])
 
   useEffect(() => {
     if (slide.id !== 'timeline') {
@@ -92,6 +123,11 @@ export default function StoriesViewer() {
   }, [index, slide.id])
 
   useEffect(() => {
+    if (!currentUnlocked) {
+      setProgress(0)
+      return
+    }
+
     if (isTimeline) {
       setProgress(timelineScroll.atBottom ? 100 : timelineScroll.pct)
       return
@@ -132,6 +168,7 @@ export default function StoriesViewer() {
     isMap,
     isHearts,
     isWheel,
+    currentUnlocked,
     timelineScroll,
     mapProgress,
     huntProgress,
@@ -165,43 +202,95 @@ export default function StoriesViewer() {
     else if (x > third * 2) goNext()
   }
 
-  const hint = isLast
-    ? 'Toque em Começar 💘'
-    : isMap
-      ? 'Toque fora do mapa: direita avança · esquerda volta'
-      : isHearts
-        ? 'Toque fora da área do jogo: direita avança · esquerda volta'
-        : isWheel
-          ? 'Gire a roleta · toque fora dela para avançar ou voltar'
-          : 'Toque à direita para avançar · esquerda para voltar'
+  const hint = !anyUnlocked
+    ? 'Aguarde o Dia dos Namorados 💝'
+    : !currentUnlocked
+      ? 'Presente bloqueado · toque à direita para continuar'
+      : isLast
+        ? 'Toque em Começar 💘'
+        : isMap
+          ? 'Toque fora do mapa: direita avança · esquerda volta'
+          : isHearts
+            ? 'Toque fora da área do jogo: direita avança · esquerda volta'
+            : isWheel
+              ? 'Gire a roleta · toque fora dela para avançar ou voltar'
+              : 'Toque à direita para avançar · esquerda para voltar'
 
   const renderSlide = () => {
+    if (!currentUnlocked) {
+      return (
+        <LockedStorySlide
+          title={slide.title}
+          unlockLabel={getUnlockLabel(slide.id)}
+          unlockAt={getUnlockAt(slide.id)}
+        />
+      )
+    }
+
     if (isTimeline) return <TimelineSlide onScrollProgress={handleTimelineScroll} />
     if (isMap) return <TravelMapSlide onMapProgress={handleMapProgress} />
     if (isHearts) return <HeartHuntSlide onHuntProgress={handleHuntProgress} />
     if (isWheel) return <LoveWheelSlide onWheelProgress={handleWheelProgress} />
-    return <Slide />
+    return <slide.Component />
+  }
+
+  if (unlockLoading) {
+    return (
+      <div className="stories stories-loading">
+        <p className="stories-hint">Carregando surpresas...</p>
+      </div>
+    )
+  }
+
+  if (!anyUnlocked) {
+    return (
+      <div className="stories">
+        <div className="stories-progress">
+          {SLIDES.map((s) => (
+            <div key={s.id} className="stories-progress-track is-locked">
+              <div className="stories-progress-fill" style={{ width: '0%' }} />
+            </div>
+          ))}
+        </div>
+        <div className="stories-body">
+          <ValentinesCountdown targetDate={firstUnlockAt} />
+        </div>
+        <p className="stories-hint">{hint}</p>
+      </div>
+    )
   }
 
   return (
     <div
       className="stories"
-      onPointerDown={() => !isTimeline && !isInteractive && setPaused(true)}
+      onPointerDown={() => !isTimeline && !isInteractive && currentUnlocked && setPaused(true)}
       onPointerUp={() => !isTimeline && !isInteractive && setPaused(false)}
       onPointerLeave={() => !isTimeline && !isInteractive && setPaused(false)}
     >
       <div className="stories-progress">
-        {SLIDES.map((s, i) => (
-          <div key={s.id} className="stories-progress-track">
+        {SLIDES.map((s, i) => {
+          const unlocked = isStoryUnlocked(s.id)
+          return (
             <div
-              className="stories-progress-fill"
-              style={{
-                width:
-                  i < index ? '100%' : i === index ? `${progress}%` : '0%',
-              }}
-            />
-          </div>
-        ))}
+              key={s.id}
+              className={`stories-progress-track${unlocked ? '' : ' is-locked'}`}
+              title={unlocked ? s.id : `Bloqueado · ${getUnlockLabel(s.id) ?? ''}`}
+            >
+              <div
+                className="stories-progress-fill"
+                style={{
+                  width:
+                    i < index && unlocked
+                      ? '100%'
+                      : i === index && unlocked
+                        ? `${progress}%`
+                        : '0%',
+                }}
+              />
+              {!unlocked && <span className="stories-progress-lock" aria-hidden="true">🔒</span>}
+            </div>
+          )
+        })}
       </div>
 
       <div className="stories-body" onClick={handleTap}>
@@ -228,6 +317,11 @@ export default function StoriesViewer() {
       </div>
 
       <p className="stories-hint">{hint}</p>
+      {unlockedSlideIds.length < SLIDES.length && (
+        <p className="stories-unlock-meta">
+          {unlockedSlideIds.length} de {SLIDES.length} presentes liberados
+        </p>
+      )}
     </div>
   )
 }
