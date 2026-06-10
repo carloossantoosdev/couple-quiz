@@ -2,7 +2,10 @@ import { useCallback, useEffect, useMemo, useState } from 'react'
 import { storySchedule } from '../data/content.js'
 import { isSupabaseConfigured, supabase } from '../lib/supabase.js'
 
-const UNLOCK_MODE = import.meta.env.VITE_UNLOCK_MODE ?? 'local'
+// Com Supabase configurado, usa o banco por padrao (producao).
+// Force local apenas com VITE_UNLOCK_MODE=local (dev sem Supabase).
+const FORCE_LOCAL = import.meta.env.VITE_UNLOCK_MODE === 'local'
+const useRemoteUnlocks = isSupabaseConfigured && !FORCE_LOCAL
 const TICK_MS = 1000
 
 function normalizeRow(row) {
@@ -38,7 +41,7 @@ export function useStoryUnlocks() {
   const [error, setError] = useState(null)
   const [now, setNow] = useState(() => new Date())
 
-  const useRemote = UNLOCK_MODE === 'supabase' && isSupabaseConfigured
+  const useRemote = useRemoteUnlocks
 
   const fetchUnlocks = useCallback(async () => {
     if (!useRemote) {

@@ -10,3 +10,5 @@ yarn-error.log*
 deploy.config.json
 /qrcode.png
 /qrcode.html
+
+.vercel

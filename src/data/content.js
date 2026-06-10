@@ -208,7 +208,7 @@ export const loveWheelPrizes = [
 // Desbloqueio progressivo dos stories (Dia dos Namorados).
 export const valentinesDay = '2026-06-12'
 
-// Fallback local quando VITE_UNLOCK_MODE=local ou Supabase indisponivel.
+// Fallback local quando VITE_UNLOCK_MODE=local (dev sem Supabase).
 // Horarios em America/Sao_Paulo (BRT).
 export const storySchedule = [
   { storyId: 'time', title: 'Tempo juntos', sortOrder: 1, unlockAt: '2026-06-12T00:00:00-03:00' },

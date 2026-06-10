@@ -15,9 +15,10 @@ Em **Project Settings → Environment Variables** do app couple-quiz:
 |----------|--------|
 | `VITE_SUPABASE_URL` | `https://rjlbqgdmbszstezxvghn.supabase.co` |
 | `VITE_SUPABASE_ANON_KEY` | anon key em Supabase → Settings → API |
-| `VITE_UNLOCK_MODE` | `supabase` |
 
-Redeploy apos salvar.
+Com URL + anon key, o app usa Supabase automaticamente. **Redeploy obrigatorio** apos salvar as vars (Vite embute env no build).
+
+Opcional para dev local sem Supabase: `VITE_UNLOCK_MODE=local`
 
 ## Local
 
