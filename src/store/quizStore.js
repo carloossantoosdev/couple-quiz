@@ -2,9 +2,9 @@ import { create } from 'zustand'
 import { questions } from '../data/questions.js'
 
 // Estado e logica do jogo.
-// status: 'start' | 'playing' | 'result' | 'surprise'
+// status: 'stories' | 'start' | 'playing' | 'result' | 'surprise'
 export const useQuizStore = create((set, get) => ({
-  status: 'start',
+  status: 'stories',
   currentIndex: 0,
   score: 0,
   // answers[i] = indice escolhido na pergunta i (ou null se nao respondida)
@@ -56,7 +56,7 @@ export const useQuizStore = create((set, get) => ({
 
   reset: () =>
     set({
-      status: 'start',
+      status: 'stories',
       currentIndex: 0,
       score: 0,
       answers: Array(questions.length).fill(null),

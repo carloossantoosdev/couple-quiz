@@ -1,5 +1,6 @@
 import { AnimatePresence, motion } from 'framer-motion'
 import { useQuizStore } from './store/quizStore.js'
+import StoriesViewer from './components/stories/StoriesViewer.jsx'
 import StartScreen from './components/StartScreen.jsx'
 import QuestionCard from './components/QuestionCard.jsx'
 import ResultScreen from './components/ResultScreen.jsx'
@@ -16,6 +17,16 @@ const screens = {
 
 export default function App() {
   const status = useQuizStore((s) => s.status)
+
+  if (status === 'stories') {
+    return (
+      <div className="app">
+        <MusicPlayer />
+        <StoriesViewer />
+      </div>
+    )
+  }
+
   const Screen = screens[status] ?? StartScreen
 
   return (

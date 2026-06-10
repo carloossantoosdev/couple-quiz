@@ -28,6 +28,123 @@ import { makePlaceholder } from '../assets/placeholderPhoto.js'
 // Nome dela (aparece na tela inicial e nas mensagens)
 export const coupleName = 'Meu Amor'
 
+// Data em que vocês começaram a namorar (formato AAAA-MM-DD).
+// Você informou 28/01/2028 — confira o ano; se for 2020, 2018 etc., edite aqui.
+export const relationshipStart = '2018-01-28'
+
+// Timeline dos stories — marcos ano a ano na linha do tempo.
+// Campos: year, title (opcional), photo, quote
+export const timeline = [
+  {
+    year: 2018,
+    title: 'O começo',
+    photo: 'colegio.jpg',
+    quote: 'O dia em que nossa história começou. Quem diria que dali viria tudo isso? 💕',
+  },
+  {
+    year: 2019,
+    title: 'Primeiro Viagem juntos',
+    photo: 'praia.jpeg',
+    quote: 'Primeiro Viagem juntos, primeiras memórias guardadas no coração. 🌊',
+  },
+  {
+    year: 2020,
+    title: 'Maracaipe',
+    photo: 'maracaipe.jpg',
+    quote: 'Mais um ano escrevendo capítulos lindos juntos. ☀️',
+  },
+  {
+    year: 2021,
+    title: 'Chile',
+    photo: 'chile.jpeg',
+    quote: 'Viagens, risadas e a certeza de que somos time. 🏔️',
+  },
+  {
+    year: 2022,
+    title: 'Nossa trilha sonora',
+    photo: 'ferrugem.jpg',
+    quote: 'Música, abraços e amor que só cresce. 🎶',
+  },
+  {
+    year: 2023,
+    title: 'Eu te escolhi',
+    photo: 'teescolhi.jpg',
+    quote: 'Eu te escolheria de novo — mil vezes, em qualquer universo. 💖',
+  },
+  {
+    year: 2024,
+    title: 'Nossa viagem favorita',
+    photo: 'rio.jpg',
+    quote: 'Viagens, risadas e a certeza de que somos time. 🏔️',
+  },
+  {
+    year: 2025,
+    title: 'Nossa viagem favorita',
+    photo: 'rio.jpg',
+    quote: 'Viagens, risadas e a certeza de que somos time. 🏔️',
+  },
+  {
+    year: 2026,
+    title: 'Nossa viagem favorita',
+    photo: 'rio.jpg',
+    quote: 'Viagens, risadas e a certeza de que somos time. 🏔️',
+  },
+]
+
+// Mapa de viagens — lugares marcados no story do mapa.
+// lat/lng: coordenadas (Google Maps → clique direito → copiar coordenadas).
+// photo: arquivo em src/assets/fotos/
+export const travelPlaces = [
+  {
+    id: 'recife',
+    name: 'Recife',
+    lat: -8.0476,
+    lng: -34.877,
+    photo: 'colegio.jpg',
+    memory: 'Onde nos conhecemos. O começo de tudo. 💕',
+  },
+  {
+    id: 'maracaipe',
+    name: 'Maracaípe',
+    lat: -8.6279,
+    lng: -35.0425,
+    photo: 'maracaipe.jpg',
+    memory: 'Sol, mar e momentos que ficaram pra sempre. ☀️',
+  },
+  {
+    id: 'Gramado',
+    name: 'Gramado',
+    lat: -8.5044,
+    lng: -35.0044,
+    photo: 'gramado.jpg',
+    memory: 'Primeiro Viagem juntos na areia. 🌊',
+  },
+  {
+    id: 'chile',
+    name: 'Chile',
+    lat: -33.4489,
+    lng: -70.6693,
+    photo: 'chile.jpeg',
+    memory: 'Neve, montanhas e a gente descobrindo o mundo. ChiChilele🏔️',
+  },
+  {
+    id: 'rio',
+    name: 'Rio de Janeiro',
+    lat: -22.9068,
+    lng: -43.1729,
+    photo: 'rio.jpg',
+    memory: 'Cidade maravilhosa, memórias maravilhosas. 🌆',
+  },
+  {
+    id: 'show',
+    name: 'Nosso show',
+    lat: -23.5505,
+    lng: -46.6333,
+    photo: 'ferrugem.jpg',
+    memory: 'Música, Ferrugem e a trilha sonora do nosso amor. 🎶',
+  },
+]
+
 // Assinatura da carta final
 export const signature = 'Com todo o meu amor,\nVocê-sabe-quem 💌'
 
@@ -93,4 +210,26 @@ export function resolveQuestionPhoto(q) {
     if (key && photoByStem[key]) return photoByStem[key]
   }
   return makePlaceholder(q.question || 'Nossa lembrança')
+}
+
+export function resolveTimelinePhoto(entry) {
+  const key = stem(entry.photo || String(entry.year))
+  if (key && photoByStem[key]) return photoByStem[key]
+  return makePlaceholder(String(entry.year))
+}
+
+export function resolveTravelPhoto(place) {
+  const key = stem(place.photo || place.id)
+  if (key && photoByStem[key]) return photoByStem[key]
+  return makePlaceholder(place.name || 'Nossa viagem')
+}
+
+export function formatRelationshipDate(isoDate) {
+  const [y, m, d] = isoDate.split('-').map(Number)
+  const date = new Date(y, m - 1, d)
+  return date.toLocaleDateString('pt-BR', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+  })
 }
