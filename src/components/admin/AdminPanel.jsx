@@ -80,35 +80,41 @@ export default function AdminPanel() {
     setError('')
   }
 
-  const callUnlock = async (storyId, unlockAtIso) => {
+  const callUnlockStory = async (storyId, unlockAtIso) => {
     if (!supabase) {
       setError('Supabase não configurado. Defina VITE_SUPABASE_URL e VITE_SUPABASE_ANON_KEY.')
-      return
+      return false
     }
 
-    setBusyId(storyId ?? 'all')
-    setMessage('')
-    setError('')
-
-    const fn = storyId ? 'admin_unlock_story' : 'admin_unlock_all_stories'
-    const params = storyId
-      ? { p_story_id: storyId, p_pin: pin, p_unlock_at: unlockAtIso }
-      : { p_pin: pin, p_unlock_at: unlockAtIso }
-
-    const { error: rpcError } = await supabase.rpc(fn, params)
+    const { error: rpcError } = await supabase.rpc('admin_unlock_story', {
+      p_story_id: storyId,
+      p_pin: pin,
+      p_unlock_at: unlockAtIso,
+    })
 
     if (rpcError) {
       const msg = rpcError.message?.includes('invalid_pin')
         ? 'PIN incorreto.'
         : rpcError.message
       setError(msg)
-    } else {
+      return false
+    }
+
+    return true
+  }
+
+  const callUnlock = async (storyId, unlockAtIso) => {
+    setBusyId(storyId)
+    setMessage('')
+    setError('')
+
+    const ok = await callUnlockStory(storyId, unlockAtIso)
+
+    if (ok) {
       const locking = new Date(unlockAtIso) > new Date()
-      if (storyId) {
-        setMessage(locking ? `Story "${storyId}" bloqueado novamente.` : `Story "${storyId}" liberado!`)
-      } else {
-        setMessage(locking ? 'Todos os stories bloqueados.' : 'Todos os stories liberados!')
-      }
+      setMessage(
+        locking ? `Story "${storyId}" bloqueado novamente.` : `Story "${storyId}" liberado!`,
+      )
       await fetchRows()
     }
 
@@ -117,30 +123,60 @@ export default function AdminPanel() {
 
   const lockStory = (storyId) => callUnlock(storyId, getDefaultScheduleUnlock(storyId))
 
+  const getStoryTargets = () =>
+    rows.length
+      ? rows.map((row) => ({
+          storyId: row.story_id ?? row.storyId,
+          unlockAt: row.unlock_at ?? row.unlockAt,
+        }))
+      : storySchedule.map((row) => ({
+          storyId: row.storyId,
+          unlockAt: row.unlockAt,
+        }))
+
+  const unlockAllStories = async () => {
+    if (!supabase) {
+      setError('Supabase não configurado. Defina VITE_SUPABASE_URL e VITE_SUPABASE_ANON_KEY.')
+      return
+    }
+
+    setBusyId('unlock-all')
+    setMessage('')
+    setError('')
+
+    const nowIso = new Date().toISOString()
+    for (const row of getStoryTargets()) {
+      const ok = await callUnlockStory(row.storyId, nowIso)
+      if (!ok) {
+        setBusyId(null)
+        return
+      }
+    }
+
+    setMessage('Todos os stories liberados!')
+    await fetchRows()
+    setBusyId(null)
+  }
+
   const lockAllStories = async () => {
     if (!supabase) {
       setError('Supabase não configurado. Defina VITE_SUPABASE_URL e VITE_SUPABASE_ANON_KEY.')
       return
     }
 
-    setBusyId('all')
+    setBusyId('lock-all')
     setMessage('')
     setError('')
 
     for (const row of storySchedule) {
-      const { error: rpcError } = await supabase.rpc('admin_unlock_story', {
-        p_story_id: row.storyId,
-        p_pin: pin,
-        p_unlock_at: row.unlockAt,
-      })
-      if (rpcError) {
-        setError(rpcError.message?.includes('invalid_pin') ? 'PIN incorreto.' : rpcError.message)
+      const ok = await callUnlockStory(row.storyId, row.unlockAt)
+      if (!ok) {
         setBusyId(null)
         return
       }
     }
 
-    setMessage('Todos os stories bloqueados (horário padrão restaurado).')
+    setMessage('Todos os stories bloqueados novamente (horário padrão restaurado).')
     await fetchRows()
     setBusyId(null)
   }
@@ -255,9 +291,9 @@ export default function AdminPanel() {
                 type="button"
                 className="btn btn-primary"
                 disabled={busyId !== null || !isSupabaseConfigured}
-                onClick={() => callUnlock(null, new Date().toISOString())}
+                onClick={unlockAllStories}
               >
-                {busyId === 'all' ? 'Liberando...' : 'Liberar todos agora'}
+                {busyId === 'unlock-all' ? 'Liberando...' : 'Liberar todos agora'}
               </button>
               <button
                 type="button"
@@ -265,7 +301,7 @@ export default function AdminPanel() {
                 disabled={busyId !== null || !isSupabaseConfigured}
                 onClick={lockAllStories}
               >
-                {busyId === 'all' ? 'Bloqueando...' : 'Bloquear todos'}
+                {busyId === 'lock-all' ? 'Bloqueando...' : 'Bloquear todos novamente'}
               </button>
               <button
                 type="button"
