@@ -26,7 +26,7 @@ create policy "Public read story unlocks"
   using (true);
 
 insert into public.app_settings (key, value) values
-  ('admin_pin_hash', extensions.crypt('07021995', extensions.gen_salt('bf')));
+  ('admin_pin_hash', extensions.crypt('0000', extensions.gen_salt('bf')));
 
 insert into public.story_unlocks (story_id, title, sort_order, unlock_at) values
   (
